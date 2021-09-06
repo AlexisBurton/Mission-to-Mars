@@ -108,16 +108,15 @@ def mars_images(browser):
     html = browser.html
     link_soup = soup(html, 'html.parser')
     links = link_soup.find_all('div', class_='item')
-    for link in links:
-        title = link.find('h3').text
-        browser.find_by_css('a.product-item h3').click()
+    for i in range(4):
+        title = browser.find_by_css('a.product-item h3')[i].text
+        browser.find_by_css('a.product-item h3')[i].click()
         img_soup = soup(html, 'html.parser')
-        img =  browser.find_link_by_text('Sample')
+        img =  browser.links.find_by_text('Sample')
         img_url = img['href']
         browser.find_by_css('a.product-item h3').click()
-        #print(img_url)
-        #print (title)
         hemisphere_image_urls.append({'title': title, 'img_url': img_url})
+
     
     return hemisphere_image_urls
 
